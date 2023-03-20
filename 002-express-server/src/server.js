@@ -1,5 +1,5 @@
 const express = require('express');
-const router = require('./router');
+const { configureRoutes } = require('./router');
 
 const port = 5000;
 
@@ -9,4 +9,4 @@ server.listen(port, () => {
   console.log(`Example app listening on port ${port}....`);
 });
 
-server.use('/api', router);
+configureRoutes(server);
