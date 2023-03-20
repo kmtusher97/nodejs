@@ -1,28 +1,8 @@
 const { Router } = require('express');
+const Controller = require('./controller');
 
 const router = Router();
 
-router.get('/test', (req, res) => {
-  res.send('Test Data');
-});
+router.get('/person', Controller.getUser);
 
-router.get('/name', (req, res) => {
-  res.send('simple express server');
-});
-
-router.get('/person', (req, res) => {
-  res.status(200).json({
-    name: 'Adam Wils',
-    age: 50,
-    address: {
-      country: 'USA',
-      state: 'Texas',
-    },
-  });
-});
-
-function configureRoutes(server) {
-  server.use('/api', router);
-}
-
-module.exports = { configureRoutes };
+module.exports = router;
