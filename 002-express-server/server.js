@@ -10,15 +10,17 @@ server.listen(port, () => {
 
 // end points
 
-server.get('/test', (req, res) => {
+const router = express.Router();
+
+router.get('/test', (req, res) => {
   res.send('Test Data');
 });
 
-server.get('/name', (req, res) => {
+router.get('/name', (req, res) => {
   res.send('simple express server');
 });
 
-server.get('/person', (req, res) => {
+router.get('/person', (req, res) => {
   res.status(200).json({
     name: 'Adam Wils',
     age: 50,
@@ -28,3 +30,5 @@ server.get('/person', (req, res) => {
     },
   });
 });
+
+server.use('/api', router);
