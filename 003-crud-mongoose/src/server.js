@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 const appConfig = require('./config/config');
 const productRouter = require('./router/productRouter');
@@ -19,6 +20,10 @@ function initServer() {
   app.listen(appConfig.PORT);
 
   connetMongoDB();
+
+  // middlewares
+  app.use(express.json());
+  app.use(bodyParser.json());
 
   // route middlewares
   app.get('/', (req, res) => {
