@@ -5,6 +5,9 @@ const createProduct = async ({ productPayload }) => {
   return await product.save();
 };
 
+const getProductList = async () => await Product.find().lean();
+
 module.exports = {
   createProduct,
+  getProductList,
 };

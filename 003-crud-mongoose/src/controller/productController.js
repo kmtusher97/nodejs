@@ -11,6 +11,10 @@ const createProduct = async (req, res) => {
   }
 };
 
+const getProductList = async (req, res) =>
+  res.status(200).json(await ProductService.getProductList());
+
 module.exports = {
   createProduct,
+  getProductList,
 };
