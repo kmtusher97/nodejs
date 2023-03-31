@@ -4,8 +4,10 @@ const ProductController = require('../controller/productController');
 
 const productRouter = Router();
 
-productRouter.post('/products', ProductController.createProduct);
-productRouter.get('/products', ProductController.getProductList);
-productRouter.get('/products/:productName', ProductController.getProductByName);
-
+productRouter.post('/', ProductController.createProduct);
+productRouter.get('/', ProductController.getProductList);
+productRouter.get('/:pid', ProductController.getProductById);
+productRouter.patch('/:pid', ProductController.updateProduct)
+productRouter.get('/productname/:productName', ProductController.getProductByName);
+productRouter.delete('/:pid', ProductController.deleteProductById)
 module.exports = productRouter;

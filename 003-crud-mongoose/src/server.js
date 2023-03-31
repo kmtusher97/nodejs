@@ -30,7 +30,7 @@ function initServer() {
     res.send('Server is alive');
   });
 
-  app.use('/api', productRouter);
+  app.use('/api/products', productRouter);
 }
 
 initServer();
