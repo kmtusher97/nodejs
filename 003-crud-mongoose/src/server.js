@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 const appConfig = require('./config/config');
 const productRouter = require('./router/productRouter');
+const errorHandler = require('../middleware/errorhandler');
 
 async function connetMongoDB() {
   try {
@@ -31,6 +32,7 @@ function initServer() {
   });
 
   app.use('/api/products', productRouter);
+  app.use(errorHandler);
 }
 
 initServer();

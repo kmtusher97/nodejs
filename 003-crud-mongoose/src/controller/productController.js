@@ -1,58 +1,59 @@
 const { json } = require("body-parser");
 const ProductService = require("../service/productService");
 
-const createProduct = async (req, res) => {
+const createProduct = async (req, res, next) => {
   try {
-    const product = await ProductService.createProduct({
-      productPayload: req.body,
-    });
-    res.status(201).json(product);
+    res.status(201).json(await ProductService.createProduct(req.body));
   } catch (error) {
-    res.status(400).json(error.message);
+    next(error);
   }
 };
 
-const getProductList = async (req, res) =>
-  res.status(200).json(await ProductService.getProductList());
+const getProductList = async (req, res) => {
+  try {
+    res.status(200).json(await ProductService.getProductList());
+  } catch (error) {
+    next(error);
+  }
+};
 
-const getProductByName = async (req, res) => {
+const getProductByName = async (req, res, next) => {
   try {
     res
       .status(200)
       .json(await ProductService.getProductByName(req.params.productName));
   } catch (error) {
-    res.status(400).json(error.message);
+    next(error);
   }
 };
 
-const getProductById = async (req, res) => {
+const getProductById = async (req, res, next) => {
   try {
-    res
-      .status(200)
-      .json(await ProductService.getProductById(req.params.pid));
+    res.status(200).json(await ProductService.getProductById(req.params.pid));
   } catch (error) {
-    res.status(400).json(error.message);
+    next(error);
   }
 };
 
-const updateProduct = async (req, res) => {
+const updateProduct = async (req, res, next) => {
   try {
     res
       .status(200)
       .json(await ProductService.updateProduct(req.params.pid, req.body));
   } catch (error) {
-    res.status(400).json(error.message);
+    next(error);
   }
 };
 
-const deleteProductById = async(req, res) => {
+const deleteProductById = async (req, res, next) => {
   try {
-    res.status(200).json(await ProductService.deleteProductById(req.params.pid))
+    res
+      .status(200)
+      .json(await ProductService.deleteProductById(req.params.pid));
+  } catch (error) {
+    next(error);
   }
-  catch(error) {
-    res.status(400).json(error.message);
-  }
-}
+};
 
 module.exports = {
   createProduct,
