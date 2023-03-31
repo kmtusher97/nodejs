@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const appConfig = require('./config/config');
 const productRouter = require('./router/productRouter');
+const { errorHandler } = require('./middleware/errorHandler');
 
 async function connetMongoDB() {
   try {
@@ -38,6 +39,8 @@ function initServer() {
   });
 
   app.use('/api/products', productRouter);
+
+  app.use(errorHandler);
 }
 
 initServer();

@@ -1,28 +1,34 @@
 const ProductService = require('../service/productService');
 
-const createProduct = async (req, res) => {
+const createProduct = async (req, res, next) => {
   try {
-    const product = await ProductService.createProduct({
-      productPayload: req.body,
-    });
-    res.status(201).json(product);
+    res.status(201).json(
+      await ProductService.createProduct({
+        productPayload: req.body,
+      })
+    );
   } catch (error) {
-    res.status(400).json(error.message);
+    next(error);
   }
 };
 
-const getProductList = async (req, res) =>
-  res.status(200).json(await ProductService.getProductList());
+const getProductList = async (req, res, next) => {
+  try {
+    res.status(200).json(await ProductService.getProductList());
+  } catch (error) {
+    next(error);
+  }
+};
 
-const getProductById = async (req, res) => {
+const getProductById = async (req, res, next) => {
   try {
     res.status(200).json(await ProductService.getProductById(req.params.id));
   } catch (error) {
-    res.status(400).json(error.message);
+    next(error);
   }
 };
 
-const updateProduct = async (req, res) => {
+const updateProduct = async (req, res, next) => {
   try {
     res.status(200).json(
       await ProductService.updateProduct({
@@ -31,15 +37,15 @@ const updateProduct = async (req, res) => {
       })
     );
   } catch (error) {
-    res.status(400).json(error.message);
+    next(error);
   }
 };
 
-const deleteProductById = async (req, res) => {
+const deleteProductById = async (req, res, next) => {
   try {
     res.status(200).json(await ProductService.deleteProductById(req.params.id));
   } catch (error) {
-    res.status(400).json(error.message);
+    next(error);
   }
 };
 
