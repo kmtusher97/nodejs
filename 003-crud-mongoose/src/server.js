@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const appConfig = require('./config/config');
 const productRouter = require('./router/productRouter');
@@ -24,6 +25,12 @@ function initServer() {
   // middlewares
   app.use(express.json());
   app.use(bodyParser.json());
+  app.use(
+    cors({
+      origin: ['http://localhost:3000'],
+      credentials: true,
+    })
+  );
 
   // route middlewares
   app.get('/', (req, res) => {
